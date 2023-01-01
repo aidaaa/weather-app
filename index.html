@@ -23,6 +23,26 @@
     <div class="container">
       <div class="weather-app-wrapper">
         <div class="weather-app">
+          <form id="search-form" class="mb-3">
+            <div class="row">
+              <div class="col-9">
+                <input
+                  id="city-input"
+                  type="search"
+                  placeholder="Type a city..."
+                  class="form-control"
+                  autocapitalize="off"
+                />
+              </div>
+              <div class="col-3">
+                <input
+                  class="btn btn-primary w-100"
+                  type="submit"
+                  value="Search"
+                />
+              </div>
+            </div>
+          </form>
           <div class="overview">
             <h1 id="city"></h1>
             <ul>
@@ -49,9 +69,8 @@
           </div>
         </div>
         <small>
-          <a href="https://github.com/aidaaa/weather-app"
-            >Open-source code, by Aida Mosayebi</a
-          >
+          <a href="https://github.com/aidaaa/weather-app">Open-source code</a
+          ><span> by Aida Mosayebi</span>
         </small>
       </div>
     </div>
