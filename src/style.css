@@ -1,5 +1,6 @@
 body {
   font-family: Arial, sans-serif;
+  cursor: default;
 }
 
 a {
@@ -42,6 +43,7 @@ li::first-letter {
   padding: 20px;
   border: 1px solid #dadde1;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .clearfix {
@@ -77,4 +79,45 @@ li::first-letter {
 
 .weather-temprature .active:hover {
   text-decoration: none;
+}
+
+.forcast {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 40px 0;
+}
+
+.forcast .day-forcast {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.forcast .day-forcast img {
+  height: 50px;
+  width: 50px;
+}
+
+.forcast .day-forcast .max {
+  color: #f65282;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.forcast .day-forcast .min {
+  color: #f65282;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-left: 10px;
+  opacity: 0.6;
+}
+
+.forcast .day-forcast span {
+  color: rgb(135, 135, 135);
 }

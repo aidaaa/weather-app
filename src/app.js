@@ -44,11 +44,50 @@ function displayTemprature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
+function displayForcast(response) {
+    let days = [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+      ];
+  let forcast = document.querySelector("#forcast");
+  for (let i = 0; i < response.data.daily.length; i++) {
+    const element = response.data.daily[i];
+    forcast.innerHTML += ` <div class="day-forcast">
+    <span>${days[i]}</span>
+    <img
+      src=${element.condition.icon_url}
+      alt=""
+    />
+    <span><strong class="max">${Math.round(
+      element.temperature.maximum
+    )}°</strong> <span class="min">${Math.round(
+      element.temperature.minimum
+    )}°</span></span>
+  </div>`;
+  }
+}
+
 function search(city) {
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayTemprature);
+  axios.get(apiUrl).then((res) => {
+    displayTemprature(res);
+    forcast(city);
+  });
+}
+
+function forcast(city) {
+  axios
+    .get(
+      `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=63a50db304t50cobad6d4ff4e685f244&units=metric`
+    )
+    .then(displayForcast);
 }
 
 function handleSubmit(event) {
