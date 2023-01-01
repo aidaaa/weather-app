@@ -45,16 +45,9 @@ function displayTemprature(response) {
 }
 
 function displayForcast(response) {
-    let days = [
-        "Sun",
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu",
-        "Fri",
-        "Sat",
-      ];
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let forcast = document.querySelector("#forcast");
+  forcast.innerHTML = null;
   for (let i = 0; i < response.data.daily.length; i++) {
     const element = response.data.daily[i];
     forcast.innerHTML += ` <div class="day-forcast">
