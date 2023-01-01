@@ -69,3 +69,12 @@ li::first-letter {
   position: relative;
   font-size: 16px;
 }
+
+.weather-temprature .active {
+  color: rgb(33, 33, 33);
+  cursor: default;
+}
+
+.weather-temprature .active:hover {
+  text-decoration: none;
+}
