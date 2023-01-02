@@ -19,6 +19,13 @@ function formatDate(timesTemp) {
   return `${day} ${hour}:${minutes}`;
 }
 
+function formatDay(timesTemp) {
+  let date = new Date(timesTemp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 function displayTemprature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -42,45 +49,43 @@ function displayTemprature(response) {
   );
 
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForcast(response.data.coord);
 }
 
 function displayForcast(response) {
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let forcast = document.querySelector("#forcast");
   forcast.innerHTML = null;
-  for (let i = 0; i < response.data.daily.length; i++) {
-    const element = response.data.daily[i];
+  for (let i = 0; i < 6; i++) {
+    const forcastDay = response.data.daily[i];
     forcast.innerHTML += ` <div class="day-forcast">
-    <span>${days[i]}</span>
+    <span>${formatDay(forcastDay.dt)}</span>
     <img
-      src=${element.condition.icon_url}
+      src=${`http://openweathermap.org/img/wn/${forcastDay.weather[0].icon}@2x.png`}
       alt=""
     />
     <span><strong class="max">${Math.round(
-      element.temperature.maximum
+      forcastDay.temp.max
     )}°</strong> <span class="min">${Math.round(
-      element.temperature.minimum
+      forcastDay.temp.min
     )}°</span></span>
   </div>`;
   }
 }
 
 function search(city) {
-  let apiKey = "df3aa34167b2cde398d13ac977f2caf8";
+  let apiKey = "49b631c45785fe73d2a88477803dea22";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then((res) => {
     displayTemprature(res);
-    forcast(city);
   });
 }
 
-function forcast(city) {
-  axios
-    .get(
-      `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=63a50db304t50cobad6d4ff4e685f244&units=metric`
-    )
-    .then(displayForcast);
+function getForcast(coordinates) {
+  let apiKey = "49b631c45785fe73d2a88477803dea22";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForcast);
 }
 
 function handleSubmit(event) {
